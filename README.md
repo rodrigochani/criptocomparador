@@ -1,23 +1,44 @@
-# Cripto-Comparador
+# Comparador de Criptomonedas
 
-El "Cripto-Comparador" es una herramienta desarrollada en Python que facilita la visualización de datos financieros clave de diversas criptomonedas. Utilizando datos en tiempo real obtenidos de APIs públicas, esta aplicación genera un reporte en HTML que muestra información como el precio actual, el volumen de comercio de las últimas 24 horas y la capitalización de mercado.
+Este proyecto es una herramienta de análisis de datos de criptomonedas que utiliza la API de CoinGecko para recopilar información sobre criptomonedas, almacenarla en una base de datos SQLite y luego permitir al usuario visualizar y comparar estos datos a través de varias visualizaciones.
 
 ## Características
 
-- **Datos en Tiempo Real**: Información actualizada sobre precios, volumen y capitalización.
-- **Interfaz Web**: Reportes generados en HTML para fácil visualización.
-- **Soporte para Múltiples Criptomonedas**: Capacidad de analizar diversas criptomonedas.
+- Recopilación de datos de criptomonedas a través de la API de CoinGecko.
+- Almacenamiento de datos en una base de datos SQLite local.
+- Funcionalidades para visualizar y comparar datos de criptomonedas.
+
+## Requisitos Previos
+
+Para ejecutar este proyecto, necesitarás Python 3.6 o superior. Todas las dependencias del proyecto están listadas en el archivo `requirements.txt`.
 
 ## Instalación
 
-Para utilizar el "Cripto-Comparador", sigue estos pasos:
+Para instalar las dependencias necesarias, ejecuta el siguiente comando en tu terminal:
 
-1. Clona este repositorio a tu máquina local usando `git clone`.
-2. Instala las dependencias necesarias con `pip install -r requirements.txt`.
+pip install -r requirements.txt
 
 ## Uso
 
-Para generar el reporte de criptomonedas, ejecuta:
+Para iniciar la aplicación, navega al directorio del proyecto y ejecuta:
 
-```bash
-python main.py
+python src/main.py
+
+Sigue las instrucciones en pantalla para actualizar datos, visualizar criptomonedas o realizar comparaciones.
+
+## Estructura del Proyecto
+
+Descripción de la estructura de carpetas del proyecto:
+
+- `src/`: Contiene el código fuente del proyecto.
+  - `api.py`: Módulo para interactuar con la API de CoinGecko.
+  - `database.py`: Módulo para manejar todas las operaciones de la base de datos.
+  - `main.py`: Punto de entrada principal de la aplicación.
+- `db/`: Directorio para el archivo de base de datos SQLite.
+- `criptomonedas.html`: Archivo HTML generado en el proyecto para visualizarlo en el navegador predeterminado del usuario.
+- `requirements.txt`: Lista todas las dependencias necesarias para el proyecto.
+- `README.md`: Este archivo.
+
+## Contribuir
+
+Si deseas contribuir a este proyecto, por favor haz un fork del repositorio y envía un pull request.
