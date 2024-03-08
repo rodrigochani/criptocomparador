@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Comparador de Criptomonedas
 
 Este proyecto es una herramienta de análisis de datos de criptomonedas que utiliza la API de CoinGecko para recopilar información sobre criptomonedas, almacenarla en una base de datos SQLite y luego permitir al usuario visualizar y comparar estos datos a través de varias visualizaciones.
@@ -43,7 +42,7 @@ Descripción de la estructura de carpetas del proyecto:
 ## Contribuir
 
 Si deseas contribuir a este proyecto, por favor haz un fork del repositorio y envía un pull request.
-=======
+
 # Comparador de Criptomonedas
 
 Este proyecto es una herramienta de análisis de datos de criptomonedas que utiliza la API de CoinGecko para recopilar información sobre criptomonedas, almacenarla en una base de datos SQLite y luego permitir al usuario visualizar y comparar estos datos a través de varias visualizaciones.
@@ -88,4 +87,3 @@ Descripción de la estructura de carpetas del proyecto:
 ## Contribuir
 
 Si deseas contribuir a este proyecto, por favor haz un fork del repositorio y envía un pull request.
->>>>>>> fe1fbcc46e2ba6f28a0b6c97d961f5aa7e0f73ee
