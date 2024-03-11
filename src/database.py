@@ -2,7 +2,7 @@ import sqlite3
 from sqlite3 import Error
 
 def crear_conexion(db_file):
-    """Crear una conexión a la base de datos SQLite especificada por db_file"""
+    "Crear una conexión a la base de datos SQLite especificada por db_file:"
     conn = None
     try:
         conn = sqlite3.connect(db_file)
@@ -12,7 +12,7 @@ def crear_conexion(db_file):
     return conn
 
 def crear_tablas(conn):
-    """Crear las tablas necesarias en la base de datos."""
+    "Crear las tablas necesarias en la base de datos:"
     try:
         cursor = conn.cursor()
         cursor.execute("""
@@ -49,7 +49,7 @@ def insertar_o_actualizar_criptomoneda(conn, id_cripto, nombre, precio_actual, v
 
 # Inicializar base de datos y crear tablas:
 if __name__ == "__main__":
-    database = "ruta/a/tu/base_de_datos.db" # Ruta al archivo de la base de datos.
+    database = "db/criptocomparador.db" # Ruta al archivo de la base de datos.
 
     # Conexión a la base de datos:
     conn = crear_conexion(database)

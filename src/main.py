@@ -1,4 +1,4 @@
-from database import crear_conexion, insertar_o_actualizar_criptomoneda
+from database import crear_conexion, crear_tablas,insertar_o_actualizar_criptomoneda
 from api import obtener_datos_mercado
 import webbrowser
 
@@ -6,23 +6,23 @@ import webbrowser
 RUTA_DB = "db/criptocomparador.db"
 
 def procesar_datos_criptomonedas(conn, coin_id, datos_mercado):
-    if datos_mercado is None or 'prices' not in datos_mercado or 'market_caps' not in datos_mercado:
+    if datos_mercado is None or 'prices' not in datos_mercado or 'market_caps' not in datos_mercado or 'total_volumes' not in datos_mercado:
         print(f"No hay datos suficientes para procesar {coin_id}.")
         return
 
+    # Calcular promedios
     precios_promedio = sum([precio for precio, _ in datos_mercado['prices']]) / len(datos_mercado['prices'])
     caps_promedio = sum([cap for cap, _ in datos_mercado['market_caps']]) / len(datos_mercado['market_caps'])
 
-    nombre = coin_id  
-    if 'total_volumes' in datos_mercado and len(datos_mercado['total_volumes']) > 0:
-            # Calcula el volumen de las últimas 24 horas como el último valor disponible en 'total_volumes'.
-            # Nota: La estructura exacta de 'datos_mercado' y cómo acceder al volumen de 24h puede variar según la API.
-            volumen_24h = datos_mercado['total_volumes'][-1][1]  # El último elemento, valor del volumen
+    # Manejo de volumen de 24h
+    if len(datos_mercado['total_volumes']) > 0:
+        volumen_24h = datos_mercado['total_volumes'][-1][1]  # El último elemento, valor del volumen
     else:
-            volumen_24h = 0  # Si no hay datos disponibles, mantiene el valor provisional.
+        volumen_24h = 0  # Si no hay datos disponibles, mantiene el valor provisional.
 
-    
+    nombre = coin_id.title()  # Asegurar que el nombre inicie con mayúsculas
 
+    # Llamar a la función para insertar o actualizar la base de datos
     insertar_o_actualizar_criptomoneda(conn, coin_id, nombre, precios_promedio, volumen_24h, caps_promedio)
 
 def actualizar_datos_criptomonedas(conn):
@@ -46,6 +46,7 @@ def actualizar_datos_criptomonedas(conn):
 def generar_html_criptomonedas():
     conn = crear_conexion(RUTA_DB)
     if conn is not None:
+        crear_tablas(conn)
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM criptomonedas")
         rows = cursor.fetchall()
@@ -76,11 +77,10 @@ def generar_html_criptomonedas():
     <h1>Listado de Criptomonedas</h1>
     <table>
         <tr>
-            <th>ID</th>
             <th>Nombre</th>
-            <th>Precio Actual (USD)</th>
-            <th>Volumen 24h (USD)</th>
-            <th>Cap. de Mercado (USD)</th>
+            <th>Precio promedio actual (USD)</th>
+            <th>Volumen 24 h (USD)</th>
+            <th>Capitalizacion promedio de mercado (USD)</th>
         </tr>
 """
         html_fin = """
@@ -93,9 +93,9 @@ def generar_html_criptomonedas():
         with open(nombre_archivo, "w") as file:
             file.write(html_inicio)
             for row in rows:
+                nombre_con_mayusculas = row[1].title()
                 file.write(f"""<tr>
-                                <td>{row[0]}</td>
-                                <td>{row[1]}</td>
+                                <td>{nombre_con_mayusculas}</td>
                                 <td>{row[2]:,.2f}</td>
                                 <td>{row[3]:,.2f}</td>
                                 <td>{row[4]:,.2f}</td>
@@ -112,4 +112,7 @@ def generar_html_criptomonedas():
         print("Error al crear la conexión a la base de datos.")
 
 if __name__ == '__main__':
+    conn = crear_conexion(RUTA_DB)
+    crear_tablas(conn)
+    actualizar_datos_criptomonedas(conn)
     generar_html_criptomonedas()
