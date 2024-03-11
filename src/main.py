@@ -74,13 +74,13 @@ def generar_html_criptomonedas():
     </style>
 </head>
 <body>
-    <h1>Listado de Criptomonedas</h1>
+    <h1>Listado de criptomonedas</h1>
     <table>
         <tr>
             <th>Nombre</th>
             <th>Precio promedio actual (USD)</th>
             <th>Volumen 24 h (USD)</th>
-            <th>Capitalizacion promedio de mercado (USD)</th>
+            <th>Capitalizacion de mercado promedio (USD)</th>
         </tr>
 """
         html_fin = """
